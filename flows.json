@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "efdb7fa65e7f3bd3",
+        "type": "tab",
+        "label": "jobs services",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "59c45e2f03c884db",
         "type": "mongodb",
         "hostname": "mongo-1292-ubos-8mkmc-mongo-1292.ubos-8mkmc",
@@ -542,6 +550,350 @@
         "headers": {},
         "x": 750,
         "y": 760,
+        "wires": []
+    },
+    {
+        "id": "0c4c23e785145e64",
+        "type": "http in",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "POST",
+        "url": "/create_jobs",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "c51d2aea836cad3b"
+            ]
+        ]
+    },
+    {
+        "id": "646795f0b3653465",
+        "type": "http in",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "GET",
+        "url": "/get_jobs",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "d97e716f8c527d42"
+            ]
+        ]
+    },
+    {
+        "id": "beb55812408b5ecb",
+        "type": "http in",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "PUT",
+        "url": "/change_jobs",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 540,
+        "wires": [
+            [
+                "a672aa2c515ed372"
+            ]
+        ]
+    },
+    {
+        "id": "b72c2708ab6559a8",
+        "type": "http in",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "DELETE",
+        "url": "/delete_jobs",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 660,
+        "wires": [
+            [
+                "cf95e0a3619fe744"
+            ]
+        ]
+    },
+    {
+        "id": "cf5be12763d95c8e",
+        "type": "http in",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "GET Comp for jobs",
+        "url": "/get_comp_jobs",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 780,
+        "wires": [
+            [
+                "4678b92b2579aa23"
+            ]
+        ]
+    },
+    {
+        "id": "4e5095e85d39cb0d",
+        "type": "http response",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1070,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "d7b7beef08aa4b23",
+        "type": "mongodb in",
+        "z": "efdb7fa65e7f3bd3",
+        "mongodb": "59c45e2f03c884db",
+        "name": "",
+        "collection": "",
+        "operation": "find",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "549ba774a70701b8"
+            ]
+        ]
+    },
+    {
+        "id": "4678b92b2579aa23",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "get_companies",
+        "func": "msg.collection = 'companies';\n\nmsg.payload = {\n    deleted : false\n}\n\nmsg.projection = {\n    name: 1\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 780,
+        "wires": [
+            [
+                "d7b7beef08aa4b23"
+            ]
+        ]
+    },
+    {
+        "id": "549ba774a70701b8",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "transcriptor",
+        "func": "msg.payload = msg.payload.map(e => {\n    return {\n        label: e.name,\n        value: e._id\n    }\n})\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 780,
+        "wires": [
+            [
+                "4e5095e85d39cb0d"
+            ]
+        ]
+    },
+    {
+        "id": "c51d2aea836cad3b",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "create_jobs",
+        "func": "msg.collection = 'jobs';\n\nmsg.payload.deleted = false\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "15bcca46c672cd10",
+                "0e3d975c3cc594c5"
+            ]
+        ]
+    },
+    {
+        "id": "15bcca46c672cd10",
+        "type": "http response",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0e3d975c3cc594c5",
+        "type": "mongodb out",
+        "z": "efdb7fa65e7f3bd3",
+        "mongodb": "59c45e2f03c884db",
+        "name": "",
+        "collection": "",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "store",
+        "x": 730,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2c842c838a07fcc8",
+        "type": "http response",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 950,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "feef66a95b0a9ceb",
+        "type": "mongodb in",
+        "z": "efdb7fa65e7f3bd3",
+        "mongodb": "59c45e2f03c884db",
+        "name": "",
+        "collection": "",
+        "operation": "find",
+        "x": 690,
+        "y": 440,
+        "wires": [
+            [
+                "2c842c838a07fcc8"
+            ]
+        ]
+    },
+    {
+        "id": "d97e716f8c527d42",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "get_jobs",
+        "func": "msg.collection = 'jobs';\n\nmsg.payload = {\n    deleted : false\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "feef66a95b0a9ceb"
+            ]
+        ]
+    },
+    {
+        "id": "6cef997cb010d8f2",
+        "type": "mongodb out",
+        "z": "efdb7fa65e7f3bd3",
+        "mongodb": "59c45e2f03c884db",
+        "name": "",
+        "collection": "",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "update",
+        "x": 710,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "a672aa2c515ed372",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "put_comp",
+        "func": "msg.collection = 'jobs';\n\nmsg.query ={\n    _id : objectid(msg.payload._id)\n} \n\ndelete msg.payload._id\n\n\nmsg.payload = {\n    $set: msg.payload\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "objectid",
+                "module": "objectid"
+            }
+        ],
+        "x": 420,
+        "y": 540,
+        "wires": [
+            [
+                "66709568d0144b70",
+                "6cef997cb010d8f2"
+            ]
+        ]
+    },
+    {
+        "id": "66709568d0144b70",
+        "type": "http response",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5260d7b78ce2a4c1",
+        "type": "mongodb out",
+        "z": "efdb7fa65e7f3bd3",
+        "mongodb": "59c45e2f03c884db",
+        "name": "",
+        "collection": "",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "update",
+        "x": 710,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "cf95e0a3619fe744",
+        "type": "function",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "delete_comp",
+        "func": "msg.collection = 'jobs';\n\nmsg.query = {\n    _id: objectid(msg.payload._id)\n}\n\ndelete msg.payload._id\n\nmsg.payload = {\n    $set: msg.payload\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "objectid",
+                "module": "objectid"
+            }
+        ],
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "a7d306fb91cfaf5c",
+                "5260d7b78ce2a4c1"
+            ]
+        ]
+    },
+    {
+        "id": "a7d306fb91cfaf5c",
+        "type": "http response",
+        "z": "efdb7fa65e7f3bd3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 700,
         "wires": []
     }
 ]
