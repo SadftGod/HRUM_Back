@@ -41,7 +41,6 @@
         "wires": [
             [
                 "214b45c9d3beea9c",
-                "6b763bd21ae1b91e",
                 "d3701cb5f66f693e"
             ]
         ]
@@ -190,8 +189,7 @@
         "y": 860,
         "wires": [
             [
-                "2055bb470404c3ab",
-                "c18c3ad07f6cc986"
+                "2055bb470404c3ab"
             ]
         ]
     },
@@ -282,40 +280,6 @@
         "operation": "store",
         "x": 770,
         "y": 1020,
-        "wires": []
-    },
-    {
-        "id": "c18c3ad07f6cc986",
-        "type": "debug",
-        "z": "167a0d2cd24e732c",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 940,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "6b763bd21ae1b91e",
-        "type": "debug",
-        "z": "167a0d2cd24e732c",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 680,
         "wires": []
     },
     {
